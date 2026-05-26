@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MultiSQL Pro — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- SVG icon sprite (inline for zero-flicker) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+        <path d="M3 5v14a9 3 0 0 0 18 0V5"></path>
+        <path d="M3 12a9 3 0 0 0 18 0"></path>
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+      </symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+      </symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle>
+      </symbol>
+      <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>
+      </symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+        <line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </symbol>
+      <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="14 7 21 7 21 14"></polyline>
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
+      </symbol>
+      <symbol id="i-empty" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="40" cy="22" rx="22" ry="6"></ellipse>
+        <path d="M18 22v32c0 3.3 9.85 6 22 6s22-2.7 22-6V22"></path>
+        <path d="M18 38c0 3.3 9.85 6 22 6s22-2.7 22-6"></path>
+        <path d="M80 50l24 16M104 50l-24 16"></path>
+      </symbol>
+    </defs>
+  </svg>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18"><use href="#i-db" /></svg>
+        </span>
+        <div class="brand-text">
+          <h1>MultiSQL<span class="pro-tag">Pro</span></h1>
+          <p class="subtitle">SQL Server · MCP control plane</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="live-indicator" title="Servidor activo">
+          <span class="live-dot"></span>
+          <span class="live-label">live</span>
+          <span class="live-time" id="liveTime">—</span>
+        </div>
+        <div class="path-chip" id="configPath" title="Archivo de configuración"></div>
+        <div class="theme-switch" role="group" aria-label="Tema">
+          <button class="theme-btn" data-theme-set="light" title="Tema claro" aria-label="Tema claro">
+            <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-sun" /></svg>
+          </button>
+          <button class="theme-btn" data-theme-set="system" title="Usar tema del sistema" aria-label="Tema del sistema">
+            <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-monitor" /></svg>
+          </button>
+          <button class="theme-btn" data-theme-set="dark" title="Tema oscuro" aria-label="Tema oscuro">
+            <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-moon" /></svg>
+          </button>
+        </div>
+        <button class="btn ghost" id="btnRefreshAll" title="Refrescar estado de todas las conexiones" aria-label="Refrescar">
+          <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-refresh" /></svg>
+          <span>Refrescar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats-row" aria-label="Métricas">
+      <div class="stat-card" data-kind="total">
+        <div class="stat-top">
+          <span class="stat-label">Total</span>
+          <span class="stat-trend">conexiones</span>
+        </div>
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-foot">registradas en config.json</div>
+      </div>
+      <div class="stat-card" data-kind="online">
+        <div class="stat-top">
+          <span class="stat-label"><span class="dot dot-online"></span>Online</span>
+          <span class="stat-trend">healthy</span>
+        </div>
+        <div class="stat-value" id="statOnline">0</div>
+        <div class="stat-foot">respondiendo OK</div>
+      </div>
+      <div class="stat-card" data-kind="offline">
+        <div class="stat-top">
+          <span class="stat-label"><span class="dot dot-offline"></span>Offline</span>
+          <span class="stat-trend">errors</span>
+        </div>
+        <div class="stat-value" id="statOffline">0</div>
+        <div class="stat-foot">sin respuesta</div>
+      </div>
+      <div class="stat-card" data-kind="prod">
+        <div class="stat-top">
+          <span class="stat-label"><span class="dot dot-prod"></span>Producción</span>
+          <span class="stat-trend">protected</span>
+        </div>
+        <div class="stat-value" id="statProd">0</div>
+        <div class="stat-foot">solo lectura forzada</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <h2>Conexiones</h2>
+          <span class="panel-sub">SQL Server registrados en este host</span>
+        </div>
+        <div class="panel-actions">
+          <div class="search-wrap">
+            <svg class="search-ico" viewBox="0 0 24 24" width="14" height="14"><use href="#i-search" /></svg>
+            <input id="searchInput" type="text" placeholder="Buscar por id, nombre, BD, host…" autocomplete="off" aria-label="Filtrar conexiones" />
+            <kbd class="kbd-hint" aria-hidden="true"><span>⌘</span>K</kbd>
+          </div>
+          <button class="btn primary" id="btnNew">
+            <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-plus" /></svg>
+            Nueva conexión
+          </button>
+        </div>
+      </div>
+      <div class="filter-meta" id="filterMeta" hidden>
+        Mostrando <strong id="filterCount">0</strong> de <span id="filterTotal">0</span>
+        <button type="button" class="btn-clear" id="btnClearFilter">Limpiar filtro</button>
+      </div>
+      <div class="grid" id="connGrid" role="list"></div>
+
+      <div class="empty" id="emptyInitial" hidden>
+        <svg class="empty-art" viewBox="0 0 120 80" width="120" height="80" aria-hidden="true"><use href="#i-empty" /></svg>
+        <h3 class="empty-title">Sin conexiones todavía</h3>
+        <p class="empty-sub">Registra tu primer servidor SQL Server para empezar a monitorear.</p>
+        <button class="btn primary" id="emptyCta">
+          <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-plus" /></svg>
+          Crear conexión
+        </button>
+      </div>
+
+      <div class="empty empty-compact" id="emptyFilter" hidden>
+        <h3 class="empty-title">Sin coincidencias</h3>
+        <p class="empty-sub">Ninguna conexión coincide con <code id="emptyFilterTerm"></code>. Prueba con otro término o limpia el filtro.</p>
+        <button class="btn" id="emptyClearBtn">Limpiar filtro</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <h2>Ajustes globales</h2>
+          <span class="panel-sub">Aplican a todas las conexiones del MCP</span>
+        </div>
+        <button class="btn primary" id="btnSaveSettings">Guardar ajustes</button>
+      </div>
+      <div class="form-grid form-grid-3">
+        <label>Query timeout <span class="lbl-unit">ms</span>
+          <input type="number" id="setTimeout" min="1000" />
+        </label>
+        <label>Máximo de filas <span class="lbl-unit">rows</span>
+          <input type="number" id="setMaxRows" min="1" />
+        </label>
+        <label>Puerto del dashboard <span class="lbl-unit">port</span>
+          <input type="number" id="setPort" min="1" max="65535" />
+        </label>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>MultiSQL Pro</span>
+      <span class="foot-sep">/</span>
+      <span>Dashboard de configuración</span>
+      <span class="foot-sep">/</span>
+      <span class="mono">SQL Server · MCP Server</span>
+    </footer>
+  </main>
+
+  <!-- Modal: Nueva / Editar conexión -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h3 id="modalTitle">Nueva conexión</h3>
+          <p class="modal-sub">Configura el endpoint SQL Server y sus credenciales</p>
+        </div>
+        <button class="icon" id="modalClose" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" width="18" height="18"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <section class="form-section">
+          <header class="form-section-head">
+            <span class="form-section-num">01</span>
+            <div>
+              <h4>Identidad</h4>
+              <p>Cómo se identifica esta conexión en el MCP.</p>
+            </div>
+          </header>
+          <div class="form-grid">
+            <label>ID <span class="lbl-unit">único</span>
+              <input type="text" id="fId" placeholder="prod" autocomplete="off" />
+            </label>
+            <label>Nombre
+              <input type="text" id="fName" placeholder="BD Producción" />
+            </label>
+            <label>Tipo <span class="lbl-unit">permisos</span>
+              <select id="fType">
+                <option value="dev">dev — lectura/escritura</option>
+                <option value="qa">qa — lectura/escritura</option>
+                <option value="readonly">readonly — solo lectura</option>
+                <option value="prod">prod — solo lectura, protegida</option>
+              </select>
+            </label>
+            <label>Autenticación
+              <select id="fAuthType">
+                <option value="sql">SQL Server (usuario + password)</option>
+                <option value="windows">Windows (NTLM con dominio)</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <header class="form-section-head">
+            <span class="form-section-num">02</span>
+            <div>
+              <h4>Conexión</h4>
+              <p>Endpoint del servidor y base de datos a usar.</p>
+            </div>
+          </header>
+          <div class="form-grid">
+            <label>Servidor / IP
+              <input type="text" id="fServer" placeholder="192.168.0.1" />
+            </label>
+            <label>Puerto <span class="lbl-unit">tcp</span>
+              <input type="number" id="fPort" value="1433" />
+            </label>
+            <label class="wide">Base de datos
+              <div class="input-row">
+                <input type="text" id="fDatabase" list="fDatabaseList" autocomplete="off" />
+                <button type="button" class="btn sm" id="btnLoadDbs" title="Listar bases de datos disponibles">Cargar</button>
+              </div>
+              <datalist id="fDatabaseList"></datalist>
+            </label>
+            <label id="fDomainLabel" hidden>Dominio
+              <div class="input-row">
+                <input type="text" id="fDomain" placeholder="MIDOMINIO" />
+                <button type="button" class="btn sm" id="btnAutoWin" title="Detectar usuario y dominio actuales de Windows">Auto</button>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <header class="form-section-head">
+            <span class="form-section-num">03</span>
+            <div>
+              <h4>Credenciales</h4>
+              <p>Login que usará el MCP para hablar con el motor.</p>
+            </div>
+          </header>
+          <div class="form-grid">
+            <label>Usuario
+              <input type="text" id="fUser" autocomplete="username" />
+            </label>
+            <label>Password
+              <div class="input-row pwd-row">
+                <input type="password" id="fPassword" autocomplete="new-password" />
+                <button type="button" class="btn sm icon-btn" id="btnTogglePwd" aria-label="Mostrar/ocultar password" title="Mostrar/ocultar">
+                  <svg viewBox="0 0 24 24" width="14" height="14" id="pwdIcon"><use href="#i-eye" /></svg>
+                </button>
+              </div>
+            </label>
+            <label class="check">
+              <input type="checkbox" id="fEncrypt" />
+              <span>Encrypt</span>
+              <span class="check-hint">Forzar TLS en la conexión</span>
+            </label>
+            <label class="check">
+              <input type="checkbox" id="fTrust" checked />
+              <span>Trust server certificate</span>
+              <span class="check-hint">Aceptar certificados auto-firmados</span>
+            </label>
+          </div>
+        </section>
+
+        <div id="testResult" class="test-result" role="status" aria-live="polite"></div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" id="btnTest">
+          <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-zap" /></svg>
+          Probar conexión
+        </button>
+        <div class="spacer"></div>
+        <button class="btn" id="btnCancel">Cancelar</button>
+        <button class="btn primary" id="btnSave">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Detalles de conexión -->
+  <div class="modal" id="detailsModal" hidden>
+    <div class="modal-card modal-lg">
+      <div class="modal-head">
+        <div>
+          <h3 id="detailsTitle">Detalles de conexión</h3>
+          <p class="modal-sub" id="detailsSub"></p>
+        </div>
+        <button class="icon" id="detailsClose" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" width="18" height="18"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <div class="tabs" id="detailsTabs" role="tablist">
+        <button class="tab active" data-tab="overview" role="tab">Resumen</button>
+        <button class="tab" data-tab="server" role="tab">Servidor &amp; BD</button>
+        <button class="tab" data-tab="identity" role="tab">Identidad &amp; Permisos</button>
+        <button class="tab" data-tab="tools" role="tab">Tools MCP</button>
+        <button class="tab" data-tab="raw" role="tab">Conexión</button>
+      </div>
+      <div class="modal-body" id="detailsBody">
+        <div class="details-loading">Cargando detalles…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirmación genérica -->
+  <div class="modal" id="confirmModal" hidden>
+    <div class="modal-card modal-sm">
+      <div class="modal-body">
+        <div class="confirm-icon" id="confirmIcon">
+          <svg viewBox="0 0 24 24" width="22" height="22"><use href="#i-warn" /></svg>
+        </div>
+        <h3 id="confirmTitle">Confirmar acción</h3>
+        <p id="confirmText" class="confirm-text">¿Estás seguro?</p>
+      </div>
+      <div class="modal-foot">
+        <div class="spacer"></div>
+        <button class="btn" id="confirmCancel">Cancelar</button>
+        <button class="btn danger solid" id="confirmOk">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

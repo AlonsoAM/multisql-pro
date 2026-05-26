@@ -1,0 +1,58 @@
+{
+  "connections": {
+    "cloud": {
+      "name": "BD Cloud (ejemplo SQL auth)",
+      "type": "dev",
+      "config": {
+        "authType": "sql",
+        "server": "<IP_O_HOSTNAME>",
+        "port": 1433,
+        "database": "<NOMBRE_BD>",
+        "user": "<USUARIO_SQL>",
+        "password": "<PASSWORD>",
+        "options": {
+          "encrypt": false,
+          "trustServerCertificate": true
+        }
+      }
+    },
+    "local": {
+      "name": "BD Local (ejemplo Windows auth)",
+      "type": "dev",
+      "config": {
+        "authType": "windows",
+        "server": "<HOSTNAME_O_IP>",
+        "port": 1433,
+        "database": "<NOMBRE_BD>",
+        "domain": "<DOMINIO>",
+        "user": "<USUARIO_WINDOWS>",
+        "password": "<PASSWORD_WINDOWS>",
+        "options": {
+          "encrypt": false,
+          "trustServerCertificate": true
+        }
+      }
+    },
+    "prod": {
+      "name": "BD Produccion (solo lectura)",
+      "type": "prod",
+      "config": {
+        "authType": "sql",
+        "server": "<IP_PROD>",
+        "port": 1433,
+        "database": "<NOMBRE_BD_PROD>",
+        "user": "<USUARIO>",
+        "password": "<PASSWORD>",
+        "options": {
+          "encrypt": false,
+          "trustServerCertificate": true
+        }
+      }
+    }
+  },
+  "settings": {
+    "queryTimeout": 60000,
+    "maxRows": 10000,
+    "dashboardPort": 4567
+  }
+}

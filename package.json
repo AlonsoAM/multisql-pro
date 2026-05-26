@@ -1,0 +1,31 @@
+{
+  "name": "multisql-pro",
+  "version": "2.0.0",
+  "description": "MCP Server profesional para multiples conexiones SQL Server con permisos dev/prod y dashboard de configuracion",
+  "type": "module",
+  "main": "src/server.js",
+  "bin": {
+    "multisql": "bin/multisql.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "config": "node bin/multisql.js config",
+    "test-conn": "node bin/multisql.js test",
+    "dev": "node --inspect src/server.js"
+  },
+  "keywords": [
+    "mcp",
+    "sql-server",
+    "mssql",
+    "multidb",
+    "multisql"
+  ],
+  "author": "Alonso Anchante",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "express": "^4.21.1",
+    "mssql": "^11.0.1",
+    "zod": "^3.23.8"
+  }
+}
